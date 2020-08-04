@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>X-Shadow</title>
+  </head>
+  <body>
+    <script src="./x/now.js"></script>
+    <script src="./x/count-down.js"></script>
+
+    <div>
+      <h3>计时器</h3>
+      <x-now interval="1000" format="yyyy-MM-dd HH:mm:ss" />
+    </div>
+
+    <div>
+      <h3>到记时</h3>
+      <x-count-down id="count-down" interval="1000" count="10" />
+
+      <script>
+        {
+          const dom = document.getElementById("count-down");
+          dom.addEventListener("onchange", (ev) => {
+            console.log("count", ev.detail.count);
+
+            if (ev.detail.count === 5) {
+              dom.stop();
+
+              setTimeout(() => {
+                dom.start();
+              }, 3000);
+            }
+          });
+
+          dom.addEventListener("onfinish", (ev) => {
+            console.log("count down finish");
+          });
+        }
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "x-shadow",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --display-error-details --progress --colors",
+    "watch": "webpack --display-error-details --progress --colors --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/x-shadow.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axetroy/x-shadow/issues"
+  },
+  "homepage": "https://github.com/axetroy/x-shadow#readme",
+  "dependencies": {
+    "date-fns": "^2.15.0",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@types/webpack": "^4.41.21",
+    "ts-loader": "^8.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

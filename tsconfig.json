@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "baseUrl": "./x",
+    "outDir": "./example/x",
+    "target": "ES2017",
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "typeRoots": ["node_modules/@types"],
+    "experimentalDecorators": true,
+    "strict": true,
+    "noImplicitAny": true
+  },
+  "exclude": ["node_modules/**/**"],
+  "include": ["x"]
+}
