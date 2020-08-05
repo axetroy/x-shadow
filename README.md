@@ -4,7 +4,9 @@ This series of components are implemented using Web Component, which means that 
 
 These components only include implementation logic, it does not include beautification styles.
 
-Including:
+[Online Demo](https://axetroy.github.io/x-shadow/)
+
+Including components:
 
 - x-now
 - x-count-down
