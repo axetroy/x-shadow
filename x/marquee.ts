@@ -90,7 +90,7 @@ class XMarquee extends HTMLElement {
 
     const style = $text.style;
 
-    style.transform = `translateX(${$box.offsetWidth + 1}px)`;
+    style.transform = `none`;
   }
 
   public stop() {
