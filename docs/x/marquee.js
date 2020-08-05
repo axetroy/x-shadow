@@ -170,8 +170,18 @@ class XMarquee extends HTMLElement {
             cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
         }
     }
-    attributeChangedCallback(attrName, oldVal, newVal) { }
+    attributeChangedCallback(attrName, oldVal, newVal) {
+        if (attrName === "width") {
+            __classPrivateFieldGet(this, _shadow).getElementById("box").style.width = newVal;
+        }
+    }
     adoptedCallback() { }
+    reset() {
+        const $box = __classPrivateFieldGet(this, _shadow).getElementById("box");
+        const $text = __classPrivateFieldGet(this, _shadow).getElementById("text");
+        const style = $text.style;
+        style.transform = `translateX(${$box.offsetWidth + 1}px)`;
+    }
     stop() {
         if (__classPrivateFieldGet(this, _timer) !== undefined) {
             cancelAnimationFrame(__classPrivateFieldGet(this, _timer));

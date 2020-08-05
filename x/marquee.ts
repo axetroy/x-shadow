@@ -76,9 +76,22 @@ class XMarquee extends HTMLElement {
     attrName: string,
     oldVal: string,
     newVal: string
-  ) {}
+  ) {
+    if (attrName === "width") {
+      (this.#shadow.getElementById("box") as HTMLElement).style.width = newVal;
+    }
+  }
 
   public adoptedCallback() {}
+
+  public reset() {
+    const $box = this.#shadow.getElementById("box") as HTMLElement;
+    const $text = this.#shadow.getElementById("text") as HTMLElement;
+
+    const style = $text.style;
+
+    style.transform = `translateX(${$box.offsetWidth + 1}px)`;
+  }
 
   public stop() {
     if (this.#timer !== undefined) {
