@@ -10,6 +10,7 @@
     <script src="./x/count-down.js"></script>
     <script src="./x/marquee.js"></script>
     <script src="./x/progress.js"></script>
+    <script src="./x/loading.js"></script>
 
     <div>
       <h3>计时器</h3>
@@ -83,7 +84,7 @@
               "brown",
               "black",
               "cyan",
-              "chocolate"
+              "chocolate",
             ];
 
             const randomColor =
@@ -94,6 +95,69 @@
           }, 1000);
         }
       </script>
+    </div>
+
+    <div>
+      <h3>加载中</h3>
+      <x-loading id="loading1" loading="true">
+        <div>
+          <div style="display: inline-block; width: 200px; padding: 20px;">
+            Parcel can take any type of file as an entry point, but a HTML or
+            JavaScript file is a good place to start. If you link your main
+            JavaScript file in the HTML using a relative path, Parcel will also
+            process it for you, and replace the reference with a URL to the
+            output file.
+          </div>
+        </div>
+
+        <span slot="tip">加载中...</span>
+      </x-loading>
+
+      <button
+        onclick="document=getElementById('loading1').setAttribute('loading',document=getElementById('loading1').getAttribute('loading') === 'true' ? 'false' : 'true')"
+      >
+        切换
+      </button>
+
+      <x-loading id="loading2" loading="false">
+        <div>
+          <div style="display: inline-block; width: 200px; padding: 20px;">
+            Parcel can take any type of file as an entry point, but a HTML or
+            JavaScript file is a good place to start. If you link your main
+            JavaScript file in the HTML using a relative path, Parcel will also
+            process it for you, and replace the reference with a URL to the
+            output file.
+          </div>
+        </div>
+
+        <div slot="tip">加载中...</div>
+      </x-loading>
+
+      <button
+        onclick="document=getElementById('loading2').setAttribute('loading',document=getElementById('loading2').getAttribute('loading') === 'true' ? 'false' : 'true')"
+      >
+        切换
+      </button>
+
+      <x-loading id="loading3" loading="true">
+        <div>
+          <div style="display: inline-block; width: 200px; padding: 20px;">
+            Parcel can take any type of file as an entry point, but a HTML or
+            JavaScript file is a good place to start. If you link your main
+            JavaScript file in the HTML using a relative path, Parcel will also
+            process it for you, and replace the reference with a URL to the
+            output file.
+          </div>
+        </div>
+
+        <!-- <span slot="tip">加载中...</span> -->
+      </x-loading>
+
+      <button
+      onclick="document=getElementById('loading3').setAttribute('loading',document=getElementById('loading3').getAttribute('loading') === 'true' ? 'false' : 'true')"
+    >
+      切换
+    </button>
     </div>
   </body>
 </html>

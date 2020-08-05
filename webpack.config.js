@@ -8,6 +8,7 @@ const webpackConfig = {
     "count-down": path.join(__dirname, "x", "count-down.ts"),
     marquee: path.join(__dirname, "x", "marquee.ts"),
     progress: path.join(__dirname, "x", "progress.ts"),
+    loading: path.join(__dirname, "x", "loading.ts"),
   },
   output: {
     path: path.join(__dirname, "docs", "x"),

@@ -81,12 +81,12 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 35);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 35:
+/***/ 36:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104,93 +104,95 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _shadow;
-class XProgress extends HTMLElement {
+var _shadow, _toggle;
+class XLoading extends HTMLElement {
     constructor() {
         super();
         _shadow.set(this, void 0);
-        __classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" }));
+        _toggle.set(this, (display) => {
+            const shadow = __classPrivateFieldGet(this, _shadow);
+            const $mask = shadow.getElementById("mask");
+            if (display) {
+                $mask.style.opacity = "1";
+            }
+            else {
+                $mask.style.opacity = "0";
+            }
+        });
+        const shadow = (__classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" })));
         const template = document.createElement("template");
         const style = document.createElement("style");
         style.textContent = `
-#container{
-  height: ${XProgress.defaults.height};
+#container {
+  display: inline-block;
+  width: auto;
+  position: relative;
+}
+
+#mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(225,225,225,50%);
+  z-index: 10;
+  transition: all 0.3s ease-in-out;
+}
+
+::slotted([slot="tip"]), #default-tip{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-}
-
-#progress{
-  height: 100%;
-  background-color: #f5f5f5;
-  flex: 1;
-}
-
-#progress-inner{
-  height: 100%;
-  background-color: ${XProgress.defaults.color};
-  border-radius: 0 5px 5px 0;
-  transition: all 0.5s ease-in-out;
-}
-
-#percent-text{
-  color: rgba(0,0,0,.45);
-  margin-left: 8px;
-  font-size: 0.8em;
+  justify-content: center;
+  z-index: 11;
 }
     `;
         template.innerHTML = `
     <div id="container">
-      <div id="progress">
-        <div id="progress-inner"></div>
+      <slot></slot>
+      <div id="mask">
+        <slot name="tip">
+          <span id="default-tip">Loading...</span>
+        </slot>
       </div>
-      <span id="percent-text">0%</span>
     </div>
     `;
-        __classPrivateFieldGet(this, _shadow).appendChild(style);
-        __classPrivateFieldGet(this, _shadow).appendChild(template.content.cloneNode(true));
+        shadow.appendChild(style);
+        shadow.appendChild(template.content.cloneNode(true));
     }
     static get observedAttributes() {
-        return ["percent", "height", "color"];
+        return ["loading"];
     }
     static get defaults() {
         return {
-            height: "8px",
-            color: "#1890ff",
+            loading: false,
         };
     }
     connectedCallback() {
+        this.style.height = "auto";
+        this.style.width = "auto";
+        this.style.display = "inline-block";
         const shadow = __classPrivateFieldGet(this, _shadow);
-        const percent = this.getAttribute("percent");
-        const height = this.getAttribute("height") || XProgress.defaults.height;
-        const color = this.getAttribute("color") || XProgress.defaults.color;
-        shadow.getElementById("percent-text").textContent =
-            percent + "%";
-        shadow.getElementById("container").style.height = height;
-        shadow.getElementById("progress-inner").style.width =
-            percent + "%";
-        shadow.getElementById("progress-inner").style.backgroundColor = color;
+        const loading = this.getAttribute("loading") === "true" ? true : false;
+        __classPrivateFieldGet(this, _toggle).call(this, loading);
     }
     disconnectedCallback() { }
     attributeChangedCallback(attrName, oldVal, newVal) {
         const shadow = __classPrivateFieldGet(this, _shadow);
         switch (attrName) {
-            case "percent":
-                shadow.getElementById("percent-text").textContent =
-                    newVal + "%";
-                shadow.getElementById("progress-inner").style.width =
-                    newVal + "%";
-                break;
-            case "height":
-                shadow.getElementById("container").style.height = newVal;
-            case "color":
-                shadow.getElementById("progress-inner").style.backgroundColor = newVal;
+            case "loading":
+                __classPrivateFieldGet(this, _toggle).call(this, newVal === "true");
                 break;
         }
     }
     adoptedCallback() { }
 }
-_shadow = new WeakMap();
-customElements.define("x-progress", XProgress);
+_shadow = new WeakMap(), _toggle = new WeakMap();
+customElements.define("x-loading", XLoading);
 
 
 /***/ })

@@ -64,8 +64,6 @@ class XProgress extends HTMLElement {
     const height = this.getAttribute("height") || XProgress.defaults.height;
     const color = this.getAttribute("color") || XProgress.defaults.color;
 
-    console.log("color", color);
-
     (shadow.getElementById("percent-text") as HTMLElement).textContent =
       percent + "%";
     (shadow.getElementById("container") as HTMLElement).style.height = height;
