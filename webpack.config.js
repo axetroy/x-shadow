@@ -6,6 +6,7 @@ const webpackConfig = {
   entry: {
     now: path.join(__dirname, "x", "now.ts"),
     "count-down": path.join(__dirname, "x", "count-down.ts"),
+    marquee: path.join(__dirname, "x", "marquee.ts"),
   },
   output: {
     path: path.join(__dirname, "docs", "x"),

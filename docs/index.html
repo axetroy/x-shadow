@@ -8,6 +8,7 @@
   <body>
     <script src="./x/now.js"></script>
     <script src="./x/count-down.js"></script>
+    <script src="./x/marquee.js"></script>
 
     <div>
       <h3>计时器</h3>
@@ -15,7 +16,7 @@
     </div>
 
     <div>
-      <h3>到记时</h3>
+      <h3>倒计时</h3>
       <x-count-down id="count-down" interval="1000" count="10" />
 
       <script>
@@ -38,6 +39,20 @@
           });
         }
       </script>
+    </div>
+
+    <div>
+      <h3>滚动文字</h3>
+      <x-marquee id="marquee" width="300px">
+        Parcel can take any type of file as an entry point, but a HTML or
+        JavaScript file is a good place to start. If you link your main
+        JavaScript file in the HTML using a relative path, Parcel will also
+        process it for you, and replace the reference with a URL to the output
+        file.
+      </x-marquee>
+
+      <button onclick="document.getElementById('marquee').stop()">暂停</button>
+      <button onclick="document.getElementById('marquee').start()">开始</button>
     </div>
   </body>
 </html>

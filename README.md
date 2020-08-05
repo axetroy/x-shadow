@@ -2,3 +2,4 @@
 
 - x-now
 - x-count-down
+- x-marquee
