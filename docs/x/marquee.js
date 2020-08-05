@@ -165,7 +165,11 @@ class XMarquee extends HTMLElement {
             this.start();
         }
     }
-    disconnectedCallback() { }
+    disconnectedCallback() {
+        if (__classPrivateFieldGet(this, _timer)) {
+            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+        }
+    }
     attributeChangedCallback(attrName, oldVal, newVal) { }
     adoptedCallback() { }
     stop() {

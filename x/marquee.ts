@@ -66,7 +66,11 @@ class XMarquee extends HTMLElement {
     }
   }
 
-  public disconnectedCallback() {}
+  public disconnectedCallback() {
+    if (this.#timer) {
+      cancelAnimationFrame(this.#timer);
+    }
+  }
 
   public attributeChangedCallback(
     attrName: string,
