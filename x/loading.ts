@@ -1,4 +1,6 @@
 class XLoading extends HTMLElement {
+  #animationTimer?: number = undefined;
+  #timeoutTimer?: number | NodeJS.Timeout = undefined;
   #shadow!: ShadowRoot;
   static get observedAttributes() {
     return ["loading"];
@@ -49,12 +51,12 @@ class XLoading extends HTMLElement {
 
     template.innerHTML = `
     <div id="container">
-      <slot></slot>
       <div id="mask">
         <slot name="tip">
           <span id="default-tip">Loading...</span>
         </slot>
       </div>
+      <slot></slot>
     </div>
     `;
 
@@ -66,7 +68,6 @@ class XLoading extends HTMLElement {
     this.style.height = "auto";
     this.style.width = "auto";
     this.style.display = "inline-block";
-    const shadow = this.#shadow;
 
     const loading = this.getAttribute("loading") === "true" ? true : false;
 
@@ -78,13 +79,36 @@ class XLoading extends HTMLElement {
     const $mask = shadow.getElementById("mask") as HTMLElement;
 
     if (display) {
-      $mask.style.opacity = "1";
+      $mask.style.display = "initial";
+      if (this.#animationTimer !== undefined) {
+        cancelAnimationFrame(this.#animationTimer);
+        this.#animationTimer = undefined;
+      }
+      this.#animationTimer = requestAnimationFrame(() => {
+        $mask.style.opacity = "1";
+      });
     } else {
       $mask.style.opacity = "0";
+      if (this.#timeoutTimer !== undefined) {
+        clearTimeout(this.#timeoutTimer as number);
+        this.#timeoutTimer = undefined;
+      }
+      this.#timeoutTimer = setTimeout(() => {
+        $mask.style.display = "none";
+      }, 300);
     }
   };
 
-  disconnectedCallback() {}
+  disconnectedCallback() {
+    if (this.#animationTimer !== undefined) {
+      cancelAnimationFrame(this.#animationTimer);
+      this.#animationTimer = undefined;
+    }
+
+    if (this.#timeoutTimer !== undefined) {
+      clearTimeout(this.#timeoutTimer as number);
+    }
+  }
 
   attributeChangedCallback(attrName: string, oldVal: string, newVal: string) {
     const shadow = this.#shadow;

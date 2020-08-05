@@ -104,19 +104,35 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _shadow, _toggle;
+var _animationTimer, _timeoutTimer, _shadow, _toggle;
 class XLoading extends HTMLElement {
     constructor() {
         super();
+        _animationTimer.set(this, undefined);
+        _timeoutTimer.set(this, undefined);
         _shadow.set(this, void 0);
         _toggle.set(this, (display) => {
             const shadow = __classPrivateFieldGet(this, _shadow);
             const $mask = shadow.getElementById("mask");
             if (display) {
-                $mask.style.opacity = "1";
+                $mask.style.display = "initial";
+                if (__classPrivateFieldGet(this, _animationTimer) !== undefined) {
+                    cancelAnimationFrame(__classPrivateFieldGet(this, _animationTimer));
+                    __classPrivateFieldSet(this, _animationTimer, undefined);
+                }
+                __classPrivateFieldSet(this, _animationTimer, requestAnimationFrame(() => {
+                    $mask.style.opacity = "1";
+                }));
             }
             else {
                 $mask.style.opacity = "0";
+                if (__classPrivateFieldGet(this, _timeoutTimer) !== undefined) {
+                    clearTimeout(__classPrivateFieldGet(this, _timeoutTimer));
+                    __classPrivateFieldSet(this, _timeoutTimer, undefined);
+                }
+                __classPrivateFieldSet(this, _timeoutTimer, setTimeout(() => {
+                    $mask.style.display = "none";
+                }, 300));
             }
         });
         const shadow = (__classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" })));
@@ -153,12 +169,12 @@ class XLoading extends HTMLElement {
     `;
         template.innerHTML = `
     <div id="container">
-      <slot></slot>
       <div id="mask">
         <slot name="tip">
           <span id="default-tip">Loading...</span>
         </slot>
       </div>
+      <slot></slot>
     </div>
     `;
         shadow.appendChild(style);
@@ -176,11 +192,18 @@ class XLoading extends HTMLElement {
         this.style.height = "auto";
         this.style.width = "auto";
         this.style.display = "inline-block";
-        const shadow = __classPrivateFieldGet(this, _shadow);
         const loading = this.getAttribute("loading") === "true" ? true : false;
         __classPrivateFieldGet(this, _toggle).call(this, loading);
     }
-    disconnectedCallback() { }
+    disconnectedCallback() {
+        if (__classPrivateFieldGet(this, _animationTimer) !== undefined) {
+            cancelAnimationFrame(__classPrivateFieldGet(this, _animationTimer));
+            __classPrivateFieldSet(this, _animationTimer, undefined);
+        }
+        if (__classPrivateFieldGet(this, _timeoutTimer) !== undefined) {
+            clearTimeout(__classPrivateFieldGet(this, _timeoutTimer));
+        }
+    }
     attributeChangedCallback(attrName, oldVal, newVal) {
         const shadow = __classPrivateFieldGet(this, _shadow);
         switch (attrName) {
@@ -191,7 +214,7 @@ class XLoading extends HTMLElement {
     }
     adoptedCallback() { }
 }
-_shadow = new WeakMap(), _toggle = new WeakMap();
+_animationTimer = new WeakMap(), _timeoutTimer = new WeakMap(), _shadow = new WeakMap(), _toggle = new WeakMap();
 customElements.define("x-loading", XLoading);
 
 
