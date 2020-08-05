@@ -1,6 +1,11 @@
 class XMarquee extends HTMLElement {
   #timer?: number = undefined; // the internal timer
   #shadow!: ShadowRoot;
+
+  static get observedAttributes() {
+    return ["width"];
+  }
+
   constructor() {
     super();
 

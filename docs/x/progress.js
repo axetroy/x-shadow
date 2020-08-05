@@ -81,12 +81,12 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 34);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 34:
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -104,101 +104,94 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _timer, _shadow, _scroll;
-class XMarquee extends HTMLElement {
+var _shadow;
+class XProgress extends HTMLElement {
     constructor() {
         super();
-        _timer.set(this, undefined); // the internal timer
         _shadow.set(this, void 0);
-        _scroll.set(this, () => {
-            const $box = __classPrivateFieldGet(this, _shadow).getElementById("box");
-            const $text = __classPrivateFieldGet(this, _shadow).getElementById("text");
-            const [textWidth] = [$text.offsetWidth, $box.offsetWidth];
-            const m = ($text.style.transform || "").match(/-?\d+/);
-            const offset = m ? +m[0] : 0;
-            const style = $text.style;
-            // if scroll all content. Then reset position to the right
-            if (offset < 0 && textWidth < -offset) {
-                style.transform = `translateX(${$box.offsetWidth + 1}px)`;
-                __classPrivateFieldSet(this, _timer, requestAnimationFrame(() => {
-                    cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
-                    __classPrivateFieldGet(this, _scroll).call(this);
-                }));
-            }
-            else {
-                style.transform = `translateX(${offset - 1}px)`;
-                __classPrivateFieldSet(this, _timer, requestAnimationFrame(() => {
-                    cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
-                    __classPrivateFieldGet(this, _scroll).call(this);
-                }));
-            }
-        });
         __classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" }));
         const template = document.createElement("template");
         const style = document.createElement("style");
         style.textContent = `
-#box {
-  white-space: nowrap;
-  overflow: hidden;
+#container{
+  height: ${XProgress.defaults.height};
+  display: flex;
+  align-items: center;
 }
 
-#text {
-  display: inline-block;
+#progress{
+  height: 100%;
+  background-color: #f5f5f5;
+  flex: 1;
+}
+
+#progress-inner{
+  height: 100%;
+  background-color: ${XProgress.defaults.color};
+  border-radius: 0 5px 5px 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#percent-text{
+  color: rgba(0,0,0,.45);
+  margin-left: 8px;
+  font-size: 0.8em;
 }
     `;
         template.innerHTML = `
-    <div id="box">
-      <span id="text">
-        <slot></slot>
-      </span>
+    <div id="container">
+      <div id="progress">
+        <div id="progress-inner"></div>
+      </div>
+      <span id="percent-text">0%</span>
     </div>
     `;
         __classPrivateFieldGet(this, _shadow).appendChild(style);
         __classPrivateFieldGet(this, _shadow).appendChild(template.content.cloneNode(true));
     }
     static get observedAttributes() {
-        return ["width"];
+        return ["percent", "height", "color"];
+    }
+    static get defaults() {
+        return {
+            height: "8px",
+            color: "#1890ff",
+        };
     }
     connectedCallback() {
-        if (__classPrivateFieldGet(this, _timer) === undefined) {
-            const width = this.getAttribute("width");
-            if (width) {
-                __classPrivateFieldGet(this, _shadow).getElementById("box").style.width = width;
-            }
-            this.start();
-        }
+        const shadow = __classPrivateFieldGet(this, _shadow);
+        const percent = this.getAttribute("percent");
+        const height = this.getAttribute("height") || XProgress.defaults.height;
+        const color = this.getAttribute("color") || XProgress.defaults.color;
+        console.log("color", color);
+        shadow.getElementById("percent-text").textContent =
+            percent + "%";
+        shadow.getElementById("container").style.height = height;
+        shadow.getElementById("progress-inner").style.width =
+            percent + "%";
+        shadow.getElementById("progress-inner").style.backgroundColor = color;
     }
-    disconnectedCallback() {
-        if (__classPrivateFieldGet(this, _timer)) {
-            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
-        }
-    }
+    disconnectedCallback() { }
     attributeChangedCallback(attrName, oldVal, newVal) {
-        if (attrName === "width") {
-            __classPrivateFieldGet(this, _shadow).getElementById("box").style.width = newVal;
+        const shadow = __classPrivateFieldGet(this, _shadow);
+        switch (attrName) {
+            case "percent":
+                shadow.getElementById("percent-text").textContent =
+                    newVal + "%";
+                shadow.getElementById("progress-inner").style.width =
+                    newVal + "%";
+                break;
+            case "height":
+                shadow.getElementById("container").style.height = newVal;
+            case "color":
+                shadow.getElementById("progress-inner").style.backgroundColor = newVal;
+                break;
         }
     }
     adoptedCallback() { }
-    reset() {
-        const $box = __classPrivateFieldGet(this, _shadow).getElementById("box");
-        const $text = __classPrivateFieldGet(this, _shadow).getElementById("text");
-        const style = $text.style;
-        style.transform = `none`;
-    }
-    stop() {
-        if (__classPrivateFieldGet(this, _timer) !== undefined) {
-            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
-        }
-    }
-    start() {
-        if (__classPrivateFieldGet(this, _timer) !== undefined) {
-            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
-        }
-        __classPrivateFieldGet(this, _scroll).call(this);
-    }
 }
-_timer = new WeakMap(), _shadow = new WeakMap(), _scroll = new WeakMap();
-customElements.define("x-marquee", XMarquee);
+_shadow = new WeakMap();
+customElements.define("x-progress", XProgress);
 
 
 /***/ })

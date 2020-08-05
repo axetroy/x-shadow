@@ -3,3 +3,4 @@
 - x-now
 - x-count-down
 - x-marquee
+- x-progress

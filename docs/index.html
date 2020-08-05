@@ -9,6 +9,7 @@
     <script src="./x/now.js"></script>
     <script src="./x/count-down.js"></script>
     <script src="./x/marquee.js"></script>
+    <script src="./x/progress.js"></script>
 
     <div>
       <h3>计时器</h3>
@@ -54,6 +55,45 @@
       <button onclick="document.getElementById('marquee').reset()">重置</button>
       <button onclick="document.getElementById('marquee').stop()">暂停</button>
       <button onclick="document.getElementById('marquee').start()">开始</button>
+      <button id="switchWidth">切换长度</button>
+
+      <script>
+        document.getElementById("switchWidth").addEventListener("click", () => {
+          document
+            .getElementById("marquee")
+            .setAttribute("width", parseFloat(Math.random() * 1000) + "px");
+        });
+      </script>
+    </div>
+
+    <div>
+      进度条
+      <x-progress height="10px" color="green" id="progress" percent="30" />
+
+      <script>
+        {
+          setInterval(() => {
+            const progress = document.getElementById("progress");
+
+            const colors = [
+              "red",
+              "green",
+              "blue",
+              "gray",
+              "brown",
+              "black",
+              "cyan",
+              "chocolate"
+            ];
+
+            const randomColor =
+              colors[Math.floor(Math.random() * colors.length)];
+
+            progress.setAttribute("percent", parseInt(Math.random() * 100));
+            progress.setAttribute("color", randomColor);
+          }, 1000);
+        }
+      </script>
     </div>
   </body>
 </html>
