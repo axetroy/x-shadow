@@ -367,7 +367,7 @@ function isInViewport(element, options = { offset: defaultOffset, threshold: 0 }
         intersection.b > options.offset.bottom + threshold.y &&
         intersection.l > options.offset.left + threshold.x);
 }
-class XLazyImage extends HTMLImageElement {
+class XLazyImage extends HTMLElement {
     constructor() {
         super();
         _shadow.set(this, void 0);

@@ -40,7 +40,7 @@ export function isInViewport(
   );
 }
 
-class XLazyImage extends HTMLImageElement {
+class XLazyImage extends HTMLElement {
   #shadow!: ShadowRoot;
   #src!: string;
   #image = document.createElement("img");
