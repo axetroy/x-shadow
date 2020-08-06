@@ -431,7 +431,9 @@ class XLazyImage extends HTMLElement {
         switch (attrName) {
             case "src":
                 __classPrivateFieldSet(this, _src, newVal);
-                __classPrivateFieldGet(this, _loadImage).call(this);
+                if (isInViewport(this)) {
+                    __classPrivateFieldGet(this, _loadImage).call(this);
+                }
                 break;
             default:
                 __classPrivateFieldGet(this, _image).setAttribute(attrName, newVal);

@@ -119,7 +119,9 @@ class XLazyImage extends HTMLElement {
     switch (attrName) {
       case "src":
         this.#src = newVal;
-        this.#loadImage();
+        if (isInViewport(this)) {
+          this.#loadImage();
+        }
         break;
       default:
         this.#image.setAttribute(attrName, newVal);
