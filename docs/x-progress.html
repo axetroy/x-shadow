@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>x-progress</title>
+  </head>
+  <body>
+    <script src="./x/progress.js"></script>
+
+    <h3>普通进度条</h3>
+    <x-progress percent="20"></x-progress>
+
+    <h3>自定义颜色</h3>
+    <x-progress color="green" percent="40"></x-progress>
+
+    <h3>设置高度</h3>
+    <x-progress height="20px" percent="60"></x-progress>
+
+    <h3>动态变换</h3>
+    <x-progress
+      id="progress"
+      height="12px"
+      color="green"
+      percent="80"
+    ></x-progress>
+
+    <script>
+      (function () {
+        setInterval(() => {
+          const progress = document.getElementById("progress");
+
+          const colors = [
+            "red",
+            "green",
+            "blue",
+            "gray",
+            "brown",
+            "black",
+            "cyan",
+            "chocolate",
+          ];
+
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+          progress.setAttribute("percent", parseInt(Math.random() * 100));
+          progress.setAttribute("color", randomColor);
+        }, 1000);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>x-marquee</title>
+  </head>
+  <body>
+    <script src="./x/marquee.js"></script>
+
+    <h3>普通</h3>
+    <x-marquee id="marquee" width="300px">
+      Parcel can take any type of file as an entry point, but a HTML or
+      JavaScript file is a good place to start. If you link your main JavaScript
+      file in the HTML using a relative path, Parcel will also process it for
+      you, and replace the reference with a URL to the output file.
+    </x-marquee>
+
+    <button id="reset" onclick="document.getElementById('marquee').reset()">
+      重置
+    </button>
+    <button id="stop" onclick="document.getElementById('marquee').stop()">
+      暂停
+    </button>
+    <button id="start" onclick="document.getElementById('marquee').start()">
+      开始
+    </button>
+    <button id="resize" onclick="document.getElementById('marquee').start()">
+      更改长度
+    </button>
+
+    <script>
+      (function () {
+        document.getElementById("reset").addEventListener("click", function () {
+          document.getElementById("marquee").reset();
+        });
+
+        document.getElementById("stop").addEventListener("click", function () {
+          document.getElementById("marquee").stop();
+        });
+
+        document.getElementById("start").addEventListener("click", function () {
+          document.getElementById("marquee").start();
+        });
+
+        document
+          .getElementById("resize")
+          .addEventListener("click", function () {
+            document
+              .getElementById("marquee")
+              .setAttribute("width", parseFloat(Math.random() * 1000) + "px");
+          });
+      })();
+    </script>
+  </body>
+</html>

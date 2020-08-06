@@ -4,286 +4,91 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>X-Shadow</title>
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/normalize/8.0.1/normalize.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      ul {
+        list-style: none;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border: none;
+      }
+
+      #app {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      #left {
+        width: 200px;
+        border-right: 1px solid #e2e2e2;
+      }
+
+      #left a {
+        color: #000;
+        padding: 5px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      #left a.active {
+        color: red;
+      }
+
+      #right {
+        flex: 1;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
-    <script src="./x/now.js"></script>
-    <script src="./x/count-down.js"></script>
-    <script src="./x/marquee.js"></script>
-    <script src="./x/progress.js"></script>
-    <script src="./x/loading.js"></script>
-    <script src="./x/lazy-image.js"></script>
-
-    <div>
-      <h3>计时器</h3>
-      <x-now interval="1000" format="yyyy-MM-dd HH:mm:ss" />
+    <div id="app">
+      <div id="left">
+        <ul>
+          <li>
+            <a href="javascript:" class="active" link="./x-now.html">x-now</a>
+          </li>
+          <li>
+            <a href="javascript:" link="./x-count-down.html">x-count-down</a>
+          </li>
+          <li><a href="javascript:" link="./x-marquee.html">x-marquee</a></li>
+          <li><a href="javascript:" link="./x-loading.html">x-loading</a></li>
+          <li><a href="javascript:" link="./x-progress.html">x-progress</a></li>
+          <li>
+            <a href="javascript:" link="./x-lazy-image.html">x-lazy-image</a>
+          </li>
+        </ul>
+      </div>
+      <div id="right">
+        <iframe id="iframe" src="./x-now.html"></iframe>
+      </div>
     </div>
 
-    <div>
-      <h3>倒计时</h3>
-      <x-count-down id="count-down" interval="1000" count="10" />
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-      <script>
-        {
-          const dom = document.getElementById("count-down");
-          dom.addEventListener("onchange", (ev) => {
-            console.log("count", ev.detail.count);
+    <script>
+      (function () {
+        $("#left ul li").click(function (el) {
+          const link = $(this).find("a").eq(0).attr("link");
 
-            if (ev.detail.count === 5) {
-              dom.stop();
+          $("#left ul li a").removeClass("active");
+          $(this).find("a").addClass("active");
 
-              setTimeout(() => {
-                dom.start();
-              }, 3000);
-            }
-          });
-
-          dom.addEventListener("onfinish", (ev) => {
-            console.log("count down finish");
-          });
-        }
-      </script>
-    </div>
-
-    <div>
-      <h3>滚动文字</h3>
-      <x-marquee id="marquee" width="300px">
-        Parcel can take any type of file as an entry point, but a HTML or
-        JavaScript file is a good place to start. If you link your main
-        JavaScript file in the HTML using a relative path, Parcel will also
-        process it for you, and replace the reference with a URL to the output
-        file.
-      </x-marquee>
-
-      <button onclick="document.getElementById('marquee').reset()">重置</button>
-      <button onclick="document.getElementById('marquee').stop()">暂停</button>
-      <button onclick="document.getElementById('marquee').start()">开始</button>
-      <button id="switchWidth">切换长度</button>
-
-      <script>
-        document.getElementById("switchWidth").addEventListener("click", () => {
-          document
-            .getElementById("marquee")
-            .setAttribute("width", parseFloat(Math.random() * 1000) + "px");
+          if ($("#iframe").attr("src") !== link) {
+            $("#iframe").attr("src", link);
+          }
         });
-      </script>
-    </div>
-
-    <div>
-      <h3>进度条</h3>
-      <x-progress height="10px" color="green" id="progress" percent="30" />
-
-      <script>
-        {
-          setInterval(() => {
-            const progress = document.getElementById("progress");
-
-            const colors = [
-              "red",
-              "green",
-              "blue",
-              "gray",
-              "brown",
-              "black",
-              "cyan",
-              "chocolate",
-            ];
-
-            const randomColor =
-              colors[Math.floor(Math.random() * colors.length)];
-
-            progress.setAttribute("percent", parseInt(Math.random() * 100));
-            progress.setAttribute("color", randomColor);
-          }, 1000);
-        }
-      </script>
-    </div>
-
-    <div>
-      <h3>加载中</h3>
-      <x-loading id="loading1" loading="true">
-        <div>
-          <div style="display: inline-block; width: 200px; padding: 20px;">
-            Parcel can take any type of file as an entry point, but a HTML or
-            JavaScript file is a good place to start. If you link your main
-            JavaScript file in the HTML using a relative path, Parcel will also
-            process it for you, and replace the reference with a URL to the
-            output file.
-          </div>
-        </div>
-
-        <span slot="tip">
-          <div class="lds-roller">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-
-          <style>
-            .lds-roller {
-              display: inline-block;
-              position: relative;
-              width: 80px;
-              height: 80px;
-            }
-            .lds-roller div {
-              animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-              transform-origin: 40px 40px;
-            }
-            .lds-roller div:after {
-              content: " ";
-              display: block;
-              position: absolute;
-              width: 7px;
-              height: 7px;
-              border-radius: 50%;
-              background: #000;
-              margin: -4px 0 0 -4px;
-            }
-            .lds-roller div:nth-child(1) {
-              animation-delay: -0.036s;
-            }
-            .lds-roller div:nth-child(1):after {
-              top: 63px;
-              left: 63px;
-            }
-            .lds-roller div:nth-child(2) {
-              animation-delay: -0.072s;
-            }
-            .lds-roller div:nth-child(2):after {
-              top: 68px;
-              left: 56px;
-            }
-            .lds-roller div:nth-child(3) {
-              animation-delay: -0.108s;
-            }
-            .lds-roller div:nth-child(3):after {
-              top: 71px;
-              left: 48px;
-            }
-            .lds-roller div:nth-child(4) {
-              animation-delay: -0.144s;
-            }
-            .lds-roller div:nth-child(4):after {
-              top: 72px;
-              left: 40px;
-            }
-            .lds-roller div:nth-child(5) {
-              animation-delay: -0.18s;
-            }
-            .lds-roller div:nth-child(5):after {
-              top: 71px;
-              left: 32px;
-            }
-            .lds-roller div:nth-child(6) {
-              animation-delay: -0.216s;
-            }
-            .lds-roller div:nth-child(6):after {
-              top: 68px;
-              left: 24px;
-            }
-            .lds-roller div:nth-child(7) {
-              animation-delay: -0.252s;
-            }
-            .lds-roller div:nth-child(7):after {
-              top: 63px;
-              left: 17px;
-            }
-            .lds-roller div:nth-child(8) {
-              animation-delay: -0.288s;
-            }
-            .lds-roller div:nth-child(8):after {
-              top: 56px;
-              left: 12px;
-            }
-            @keyframes lds-roller {
-              0% {
-                transform: rotate(0deg);
-              }
-              100% {
-                transform: rotate(360deg);
-              }
-            }
-          </style>
-        </span>
-      </x-loading>
-
-      <button
-        onclick="document=getElementById('loading1').setAttribute('loading',document=getElementById('loading1').getAttribute('loading') === 'true' ? 'false' : 'true')"
-      >
-        切换
-      </button>
-
-      <x-loading id="loading2" loading="false">
-        <div>
-          <div style="display: inline-block; width: 200px; padding: 20px;">
-            Parcel can take any type of file as an entry point, but a HTML or
-            JavaScript file is a good place to start. If you link your main
-            JavaScript file in the HTML using a relative path, Parcel will also
-            process it for you, and replace the reference with a URL to the
-            output file.
-          </div>
-        </div>
-
-        <div slot="tip">加载中...</div>
-      </x-loading>
-
-      <button
-        onclick="document=getElementById('loading2').setAttribute('loading',document=getElementById('loading2').getAttribute('loading') === 'true' ? 'false' : 'true')"
-      >
-        切换
-      </button>
-
-      <x-loading id="loading3" loading="true">
-        <div>
-          <div style="display: inline-block; width: 200px; padding: 20px;">
-            Parcel can take any type of file as an entry point, but a HTML or
-            JavaScript file is a good place to start. If you link your main
-            JavaScript file in the HTML using a relative path, Parcel will also
-            process it for you, and replace the reference with a URL to the
-            output file.
-          </div>
-        </div>
-
-        <!-- <span slot="tip">加载中...</span> -->
-      </x-loading>
-
-      <button
-        onclick="document=getElementById('loading3').setAttribute('loading',document=getElementById('loading3').getAttribute('loading') === 'true' ? 'false' : 'true')"
-      >
-        切换
-      </button>
-    </div>
-
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-
-    <div>
-      <h3>懒加载图片</h3>
-      <x-lazy-image
-        id="image1"
-        alt="image"
-        src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482517862,1430466652&fm=26&gp=0.jpg"
-        style="max-width: 300px;"
-      ></x-lazy-image>
-
-      <button
-        onclick="document.getElementById('image1').setAttribute('src', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596687452151&di=48440ba429ae432178356ca379912b5e&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2%2F58b4ef69ed377.jpg')"
-      >
-        改变 src
-      </button>
-    </div>
+      })();
+    </script>
   </body>
 </html>

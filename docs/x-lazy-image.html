@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>x-lazy-image</title>
+  </head>
+  <body>
+    <script src="./x/lazy-image.js"></script>
+
+    <p>请下拉页面查看效果</p>
+
+    <div style="height: 2000px;"></div>
+
+    <h3>懒加载图片</h3>
+    <x-lazy-image
+      id="image1"
+      alt="image"
+      src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482517862,1430466652&fm=26&gp=0.jpg"
+      style="max-width: 300px;"
+    ></x-lazy-image>
+
+    <button id="changeSrc">
+      改变 src
+    </button>
+
+    <script>
+      (function () {
+        const images = [
+          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596687452151&di=48440ba429ae432178356ca379912b5e&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2%2F58b4ef69ed377.jpg",
+          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596690254412&di=f88abe819f53538ad9c7d92195d3ac30&imgtype=0&src=http%3A%2F%2Fyouimg1.c-ctrip.com%2Ftarget%2Ftg%2F706%2F427%2F971%2Ff30f03169a5a4152bf009722b3387f2f.jpg",
+          "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2322586521,1424670867&fm=26&gp=0.jpg",
+          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596690254408&di=2ca2482b3c3eb8902255a10cb1043e1b&imgtype=0&src=http%3A%2F%2Fcdn.duitang.com%2Fuploads%2Fitem%2F201402%2F20%2F20140220220726_YvyRR.jpeg",
+          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596690254407&di=23355b6a92a68c82264f70dc3ac21b6d&imgtype=0&src=http%3A%2F%2Fimg8.zol.com.cn%2Fbbs%2Fupload%2F18816%2F18815745.jpg",
+          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596690254405&di=971fd76185c616f30d60dc153ce702c0&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2017-12-04%2F5a24aac057b47.jpg",
+        ];
+
+        document
+          .getElementById("changeSrc")
+          .addEventListener("click", function () {
+            const randomImg = images[Math.floor(Math.random() * images.length)];
+
+            document.getElementById("image1").setAttribute("src", randomImg);
+          });
+      })();
+    </script>
+  </body>
+</html>
