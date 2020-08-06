@@ -11,6 +11,7 @@
     <script src="./x/marquee.js"></script>
     <script src="./x/progress.js"></script>
     <script src="./x/loading.js"></script>
+    <script src="./x/lazy-image.js"></script>
 
     <div>
       <h3>计时器</h3>
@@ -68,7 +69,7 @@
     </div>
 
     <div>
-      进度条
+      <h3>进度条</h3>
       <x-progress height="10px" color="green" id="progress" percent="30" />
 
       <script>
@@ -110,7 +111,105 @@
           </div>
         </div>
 
-        <span slot="tip">加载中...</span>
+        <span slot="tip">
+          <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+
+          <style>
+            .lds-roller {
+              display: inline-block;
+              position: relative;
+              width: 80px;
+              height: 80px;
+            }
+            .lds-roller div {
+              animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+              transform-origin: 40px 40px;
+            }
+            .lds-roller div:after {
+              content: " ";
+              display: block;
+              position: absolute;
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background: #000;
+              margin: -4px 0 0 -4px;
+            }
+            .lds-roller div:nth-child(1) {
+              animation-delay: -0.036s;
+            }
+            .lds-roller div:nth-child(1):after {
+              top: 63px;
+              left: 63px;
+            }
+            .lds-roller div:nth-child(2) {
+              animation-delay: -0.072s;
+            }
+            .lds-roller div:nth-child(2):after {
+              top: 68px;
+              left: 56px;
+            }
+            .lds-roller div:nth-child(3) {
+              animation-delay: -0.108s;
+            }
+            .lds-roller div:nth-child(3):after {
+              top: 71px;
+              left: 48px;
+            }
+            .lds-roller div:nth-child(4) {
+              animation-delay: -0.144s;
+            }
+            .lds-roller div:nth-child(4):after {
+              top: 72px;
+              left: 40px;
+            }
+            .lds-roller div:nth-child(5) {
+              animation-delay: -0.18s;
+            }
+            .lds-roller div:nth-child(5):after {
+              top: 71px;
+              left: 32px;
+            }
+            .lds-roller div:nth-child(6) {
+              animation-delay: -0.216s;
+            }
+            .lds-roller div:nth-child(6):after {
+              top: 68px;
+              left: 24px;
+            }
+            .lds-roller div:nth-child(7) {
+              animation-delay: -0.252s;
+            }
+            .lds-roller div:nth-child(7):after {
+              top: 63px;
+              left: 17px;
+            }
+            .lds-roller div:nth-child(8) {
+              animation-delay: -0.288s;
+            }
+            .lds-roller div:nth-child(8):after {
+              top: 56px;
+              left: 12px;
+            }
+            @keyframes lds-roller {
+              0% {
+                transform: rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+          </style>
+        </span>
       </x-loading>
 
       <button
@@ -154,10 +253,37 @@
       </x-loading>
 
       <button
-      onclick="document=getElementById('loading3').setAttribute('loading',document=getElementById('loading3').getAttribute('loading') === 'true' ? 'false' : 'true')"
-    >
-      切换
-    </button>
+        onclick="document=getElementById('loading3').setAttribute('loading',document=getElementById('loading3').getAttribute('loading') === 'true' ? 'false' : 'true')"
+      >
+        切换
+      </button>
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div>
+      <h3>懒加载图片</h3>
+      <x-lazy-image
+        id="image1"
+        alt="image"
+        src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3482517862,1430466652&fm=26&gp=0.jpg"
+        style="max-width: 300px;"
+      ></x-lazy-image>
+
+      <button
+        onclick="document.getElementById('image1').setAttribute('src', 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596687452151&di=48440ba429ae432178356ca379912b5e&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F2%2F58b4ef69ed377.jpg')"
+      >
+        改变 src
+      </button>
     </div>
   </body>
 </html>

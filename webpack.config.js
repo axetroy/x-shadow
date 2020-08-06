@@ -9,6 +9,7 @@ const webpackConfig = {
     marquee: path.join(__dirname, "x", "marquee.ts"),
     progress: path.join(__dirname, "x", "progress.ts"),
     loading: path.join(__dirname, "x", "loading.ts"),
+    "lazy-image": path.join(__dirname, "x", "lazy-image.ts"),
   },
   output: {
     path: path.join(__dirname, "docs", "x"),

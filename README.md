@@ -13,3 +13,4 @@ Including components:
 - x-marquee
 - x-progress
 - x-loading
+- x-lazy-image

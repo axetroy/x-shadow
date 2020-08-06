@@ -20,9 +20,11 @@
   "homepage": "https://github.com/axetroy/x-shadow#readme",
   "dependencies": {
     "date-fns": "^2.15.0",
+    "lodash-es": "^4.17.15",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.3",
     "@types/webpack": "^4.41.21",
     "ts-loader": "^8.0.2",
     "webpack": "^4.44.1",
