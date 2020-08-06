@@ -342,7 +342,7 @@ var __classPrivateFieldGet = (undefined && undefined.__classPrivateFieldGet) || 
     }
     return privateMap.get(receiver);
 };
-var _shadow, _loaded, _loading, _src, _image, _listener, _loadImage, _handle;
+var _shadow, _src, _image, _listener, _loadImage, _handle;
 
 const defaultOffset = {
     top: 0,
@@ -367,26 +367,18 @@ function isInViewport(element, options = { offset: defaultOffset, threshold: 0 }
         intersection.b > options.offset.bottom + threshold.y &&
         intersection.l > options.offset.left + threshold.x);
 }
-class XLazyImage extends HTMLElement {
+class XLazyImage extends HTMLImageElement {
     constructor() {
         super();
         _shadow.set(this, void 0);
-        _loaded.set(this, false);
-        _loading.set(this, false);
         _src.set(this, void 0);
         _image.set(this, document.createElement("img"));
         _listener.set(this, () => { });
         _loadImage.set(this, () => {
             if (__classPrivateFieldGet(this, _src)) {
-                __classPrivateFieldSet(this, _loading, true);
                 __classPrivateFieldGet(this, _image).src = __classPrivateFieldGet(this, _src);
                 __classPrivateFieldGet(this, _image).onload = (res) => {
-                    __classPrivateFieldSet(this, _loading, false);
-                    __classPrivateFieldSet(this, _loaded, true);
                     __classPrivateFieldGet(this, _shadow).appendChild(__classPrivateFieldGet(this, _image));
-                };
-                __classPrivateFieldGet(this, _image).onerror = () => {
-                    __classPrivateFieldSet(this, _loading, false);
                 };
             }
         });
@@ -400,6 +392,7 @@ class XLazyImage extends HTMLElement {
     static get observedAttributes() {
         return [
             "src",
+            "srcset",
             "alt",
             "width",
             "height",
@@ -408,11 +401,11 @@ class XLazyImage extends HTMLElement {
             "class",
             "align",
             "border",
-            "hspace",
             "ismap",
-            "longdesc",
             "usemap",
-            "vspace",
+            "crossOrigin",
+            "referrerPolicy",
+            "sizes",
         ];
     }
     connectedCallback() {
@@ -442,7 +435,7 @@ class XLazyImage extends HTMLElement {
     }
     adoptedCallback() { }
 }
-_shadow = new WeakMap(), _loaded = new WeakMap(), _loading = new WeakMap(), _src = new WeakMap(), _image = new WeakMap(), _listener = new WeakMap(), _loadImage = new WeakMap(), _handle = new WeakMap();
+_shadow = new WeakMap(), _src = new WeakMap(), _image = new WeakMap(), _listener = new WeakMap(), _loadImage = new WeakMap(), _handle = new WeakMap();
 customElements.define("x-lazy-image", XLazyImage);
 
 

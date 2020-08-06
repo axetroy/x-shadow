@@ -40,16 +40,15 @@ export function isInViewport(
   );
 }
 
-class XLazyImage extends HTMLElement {
+class XLazyImage extends HTMLImageElement {
   #shadow!: ShadowRoot;
-  #loaded = false;
-  #loading = false;
   #src!: string;
   #image = document.createElement("img");
 
   static get observedAttributes() {
     return [
       "src",
+      "srcset",
       "alt",
       "width",
       "height",
@@ -58,11 +57,11 @@ class XLazyImage extends HTMLElement {
       "class",
       "align",
       "border",
-      "hspace",
       "ismap",
-      "longdesc",
       "usemap",
-      "vspace",
+      "crossOrigin",
+      "referrerPolicy",
+      "sizes",
     ];
   }
 
@@ -76,15 +75,9 @@ class XLazyImage extends HTMLElement {
 
   #loadImage = () => {
     if (this.#src) {
-      this.#loading = true;
       this.#image.src = this.#src;
       this.#image.onload = (res) => {
-        this.#loading = false;
-        this.#loaded = true;
         this.#shadow.appendChild(this.#image);
-      };
-      this.#image.onerror = () => {
-        this.#loading = false;
       };
     }
   };
