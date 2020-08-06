@@ -1,6 +1,8 @@
 const webpack = require("webpack");
 const path = require("path");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 // webpack.config.js
 const webpackConfig = {
   entry: {
@@ -22,8 +24,11 @@ const webpackConfig = {
   module: {
     rules: [{ test: /\.tsx?$/, loader: "ts-loader" }],
   },
-  mode: "none",
+  mode: isProduction ? "production" : "none",
   plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      filename: "[name].js.map",
+    }),
     new webpack.DefinePlugin(
       (() => {
         const result = { "process.env.NODE_ENV": '"development"' };
