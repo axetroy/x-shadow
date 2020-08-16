@@ -1,1 +1,129 @@
-(()=>{"use strict";({54:function(){var t,e,n,i=this&&this.__classPrivateFieldSet||function(t,e,n){if(!e.has(t))throw new TypeError("attempted to set private field on non-instance");return e.set(t,n),n},s=this&&this.__classPrivateFieldGet||function(t,e){if(!e.has(t))throw new TypeError("attempted to get private field on non-instance");return e.get(t)};class a extends HTMLElement{constructor(){super(),t.set(this,void 0),e.set(this,void 0),n.set(this,()=>{const a=s(this,e).getElementById("box"),o=s(this,e).getElementById("text"),[h]=[o.offsetWidth,a.offsetWidth],r=(o.style.transform||"").match(/-?\d+/),l=r?+r[0]:0,d=o.style;l<0&&h<-l?(d.transform=`translateX(${a.offsetWidth+1}px)`,i(this,t,requestAnimationFrame(()=>{cancelAnimationFrame(s(this,t)),s(this,n).call(this)}))):(d.transform=`translateX(${l-1}px)`,i(this,t,requestAnimationFrame(()=>{cancelAnimationFrame(s(this,t)),s(this,n).call(this)})))}),i(this,e,this.attachShadow({mode:"open"}));const a=document.createElement("template"),o=document.createElement("style");o.textContent="\n#box {\n  white-space: nowrap;\n  overflow: hidden;\n}\n\n#text {\n  display: inline-block;\n}\n    ",a.innerHTML='\n    <div id="box">\n      <span id="text">\n        <slot></slot>\n      </span>\n    </div>\n    ',s(this,e).appendChild(o),s(this,e).appendChild(a.content.cloneNode(!0))}static get observedAttributes(){return["width"]}connectedCallback(){if(void 0===s(this,t)){const t=this.getAttribute("width");t&&(s(this,e).getElementById("box").style.width=t),this.start()}}disconnectedCallback(){s(this,t)&&cancelAnimationFrame(s(this,t))}attributeChangedCallback(t,n,i){"width"===t&&(s(this,e).getElementById("box").style.width=i)}adoptedCallback(){}reset(){s(this,e).getElementById("box");s(this,e).getElementById("text").style.transform="none"}stop(){void 0!==s(this,t)&&cancelAnimationFrame(s(this,t))}start(){void 0!==s(this,t)&&cancelAnimationFrame(s(this,t)),s(this,n).call(this)}}t=new WeakMap,e=new WeakMap,n=new WeakMap,customElements.define("x-marquee",a)}})[54]()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 16:
+/***/ (function() {
+
+
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var _timer, _shadow, _scroll;
+class XMarquee extends HTMLElement {
+    constructor() {
+        super();
+        _timer.set(this, undefined); // the internal timer
+        _shadow.set(this, void 0);
+        _scroll.set(this, () => {
+            const $box = __classPrivateFieldGet(this, _shadow).getElementById("box");
+            const $text = __classPrivateFieldGet(this, _shadow).getElementById("text");
+            const [textWidth] = [$text.offsetWidth, $box.offsetWidth];
+            const m = ($text.style.transform || "").match(/-?\d+/);
+            const offset = m ? +m[0] : 0;
+            const style = $text.style;
+            // if scroll all content. Then reset position to the right
+            if (offset < 0 && textWidth < -offset) {
+                style.transform = `translateX(${$box.offsetWidth + 1}px)`;
+                __classPrivateFieldSet(this, _timer, requestAnimationFrame(() => {
+                    cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+                    __classPrivateFieldGet(this, _scroll).call(this);
+                }));
+            }
+            else {
+                style.transform = `translateX(${offset - 1}px)`;
+                __classPrivateFieldSet(this, _timer, requestAnimationFrame(() => {
+                    cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+                    __classPrivateFieldGet(this, _scroll).call(this);
+                }));
+            }
+        });
+        __classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" }));
+        const template = document.createElement("template");
+        const style = document.createElement("style");
+        style.textContent = `
+#box {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#text {
+  display: inline-block;
+}
+    `;
+        template.innerHTML = `
+    <div id="box">
+      <span id="text">
+        <slot></slot>
+      </span>
+    </div>
+    `;
+        __classPrivateFieldGet(this, _shadow).appendChild(style);
+        __classPrivateFieldGet(this, _shadow).appendChild(template.content.cloneNode(true));
+    }
+    static get observedAttributes() {
+        return ["width"];
+    }
+    connectedCallback() {
+        if (__classPrivateFieldGet(this, _timer) === undefined) {
+            const width = this.getAttribute("width");
+            if (width) {
+                __classPrivateFieldGet(this, _shadow).getElementById("box").style.width = width;
+            }
+            this.start();
+        }
+    }
+    disconnectedCallback() {
+        if (__classPrivateFieldGet(this, _timer)) {
+            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+        }
+    }
+    attributeChangedCallback(attrName, oldVal, newVal) {
+        if (attrName === "width") {
+            __classPrivateFieldGet(this, _shadow).getElementById("box").style.width = newVal;
+        }
+    }
+    adoptedCallback() { }
+    reset() {
+        const $box = __classPrivateFieldGet(this, _shadow).getElementById("box");
+        const $text = __classPrivateFieldGet(this, _shadow).getElementById("text");
+        const style = $text.style;
+        style.transform = `none`;
+    }
+    stop() {
+        if (__classPrivateFieldGet(this, _timer) !== undefined) {
+            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+        }
+    }
+    start() {
+        if (__classPrivateFieldGet(this, _timer) !== undefined) {
+            cancelAnimationFrame(__classPrivateFieldGet(this, _timer));
+        }
+        __classPrivateFieldGet(this, _scroll).call(this);
+    }
+}
+_timer = new WeakMap(), _shadow = new WeakMap(), _scroll = new WeakMap();
+customElements.define("x-marquee", XMarquee);
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	__webpack_modules__[16]();
+/******/ })()
+;
+//# sourceMappingURL=marquee.js.map

@@ -8,9 +8,10 @@ These components only include implementation logic, it does not include beautifi
 
 Including components:
 
-- x-now
-- x-count-down
-- x-marquee
-- x-progress
-- x-loading
-- x-lazy-image
+- x-now: 当前时间
+- x-count-down: 倒计时
+- x-marquee: 滚动文字
+- x-progress: 进度条
+- x-loading: 加载中
+- x-lazy-image: 图片懒加载
+- x-drawing-board: 画版

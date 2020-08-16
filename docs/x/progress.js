@@ -1,1 +1,121 @@
-(()=>{"use strict";({617:function(){var e,t=this&&this.__classPrivateFieldSet||function(e,t,n){if(!t.has(e))throw new TypeError("attempted to set private field on non-instance");return t.set(e,n),n},n=this&&this.__classPrivateFieldGet||function(e,t){if(!t.has(e))throw new TypeError("attempted to get private field on non-instance");return t.get(e)};class r extends HTMLElement{constructor(){super(),e.set(this,void 0),t(this,e,this.attachShadow({mode:"open"}));const i=document.createElement("template"),s=document.createElement("style");s.textContent=`\n#container{\n  height: ${r.defaults.height};\n  display: flex;\n  align-items: center;\n}\n\n#progress{\n  height: 100%;\n  background-color: #f5f5f5;\n  flex: 1;\n}\n\n#progress-inner{\n  height: 100%;\n  background-color: ${r.defaults.color};\n  border-radius: 0 5px 5px 0;\n  transition: all 0.5s ease-in-out;\n}\n\n#percent-text{\n  color: rgba(0,0,0,.45);\n  margin-left: 8px;\n  font-size: 0.8em;\n}\n    `,i.innerHTML='\n    <div id="container">\n      <div id="progress">\n        <div id="progress-inner"></div>\n      </div>\n      <span id="percent-text">0%</span>\n    </div>\n    ',n(this,e).appendChild(s),n(this,e).appendChild(i.content.cloneNode(!0))}static get observedAttributes(){return["percent","height","color"]}static get defaults(){return{height:"8px",color:"#1890ff"}}connectedCallback(){const t=n(this,e),i=this.getAttribute("percent"),s=this.getAttribute("height")||r.defaults.height,o=this.getAttribute("color")||r.defaults.color;t.getElementById("percent-text").textContent=i+"%",t.getElementById("container").style.height=s,t.getElementById("progress-inner").style.width=i+"%",t.getElementById("progress-inner").style.backgroundColor=o}disconnectedCallback(){}attributeChangedCallback(t,r,i){const s=n(this,e);switch(t){case"percent":s.getElementById("percent-text").textContent=i+"%",s.getElementById("progress-inner").style.width=i+"%";break;case"height":s.getElementById("container").style.height=i;case"color":s.getElementById("progress-inner").style.backgroundColor=i}}adoptedCallback(){}}e=new WeakMap,customElements.define("x-progress",r)}})[617]()})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 50:
+/***/ (function() {
+
+
+var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, privateMap, value) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to set private field on non-instance");
+    }
+    privateMap.set(receiver, value);
+    return value;
+};
+var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, privateMap) {
+    if (!privateMap.has(receiver)) {
+        throw new TypeError("attempted to get private field on non-instance");
+    }
+    return privateMap.get(receiver);
+};
+var _shadow;
+class XProgress extends HTMLElement {
+    constructor() {
+        super();
+        _shadow.set(this, void 0);
+        __classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" }));
+        const template = document.createElement("template");
+        const style = document.createElement("style");
+        style.textContent = `
+#container{
+  height: ${XProgress.defaults.height};
+  display: flex;
+  align-items: center;
+}
+
+#progress{
+  height: 100%;
+  background-color: #f5f5f5;
+  flex: 1;
+}
+
+#progress-inner{
+  height: 100%;
+  background-color: ${XProgress.defaults.color};
+  border-radius: 0 5px 5px 0;
+  transition: all 0.5s ease-in-out;
+}
+
+#percent-text{
+  color: rgba(0,0,0,.45);
+  margin-left: 8px;
+  font-size: 0.8em;
+}
+    `;
+        template.innerHTML = `
+    <div id="container">
+      <div id="progress">
+        <div id="progress-inner"></div>
+      </div>
+      <span id="percent-text">0%</span>
+    </div>
+    `;
+        __classPrivateFieldGet(this, _shadow).appendChild(style);
+        __classPrivateFieldGet(this, _shadow).appendChild(template.content.cloneNode(true));
+    }
+    static get observedAttributes() {
+        return ["percent", "height", "color"];
+    }
+    static get defaults() {
+        return {
+            height: "8px",
+            color: "#1890ff",
+        };
+    }
+    connectedCallback() {
+        const shadow = __classPrivateFieldGet(this, _shadow);
+        const percent = this.getAttribute("percent");
+        const height = this.getAttribute("height") || XProgress.defaults.height;
+        const color = this.getAttribute("color") || XProgress.defaults.color;
+        shadow.getElementById("percent-text").textContent =
+            percent + "%";
+        shadow.getElementById("container").style.height = height;
+        shadow.getElementById("progress-inner").style.width =
+            percent + "%";
+        shadow.getElementById("progress-inner").style.backgroundColor = color;
+    }
+    disconnectedCallback() { }
+    attributeChangedCallback(attrName, oldVal, newVal) {
+        const shadow = __classPrivateFieldGet(this, _shadow);
+        switch (attrName) {
+            case "percent":
+                shadow.getElementById("percent-text").textContent =
+                    newVal + "%";
+                shadow.getElementById("progress-inner").style.width =
+                    newVal + "%";
+                break;
+            case "height":
+                shadow.getElementById("container").style.height = newVal;
+            case "color":
+                shadow.getElementById("progress-inner").style.backgroundColor = newVal;
+                break;
+        }
+    }
+    adoptedCallback() { }
+}
+_shadow = new WeakMap();
+customElements.define("x-progress", XProgress);
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	__webpack_modules__[50]();
+/******/ })()
+;
+//# sourceMappingURL=progress.js.map

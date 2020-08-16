@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>x-drawing-board</title>
+  </head>
+  <body>
+    <script src="./x/drawing-board.js"></script>
+
+    <h3>普通画板</h3>
+    <x-drawing-board
+      color="red"
+      width="300"
+      height="300"
+      id="draw"
+      style="border: 1px solid #e2e2e2;"
+    ></x-drawing-board>
+    <img id="image" />
+
+    <button onclick="document.getElementById('draw').clear()">清除</button>
+    <button
+      onclick="document.getElementById('image').src = document.getElementById('draw').toBase64()"
+    >
+      转化base64
+    </button>
+    <button onclick="document.getElementById('draw').download('图片.jpg')">
+      下载
+    </button>
+  </body>
+</html>

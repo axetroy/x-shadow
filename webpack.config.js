@@ -1,18 +1,24 @@
 const webpack = require("webpack");
 const path = require("path");
+const fs = require("fs");
 
 const isProduction = process.env.NODE_ENV === "production";
 
+const modules = fs
+  .readdirSync(path.join(__dirname, "x"))
+  .filter((v) => v.endsWith(".ts"));
+
+function mapEntry() {
+  const entry = {};
+  for (const file of modules) {
+    entry[file.replace(/\.ts$/, "")] = path.join(__dirname, "x", file);
+  }
+  return entry;
+}
+
 // webpack.config.js
 const webpackConfig = {
-  entry: {
-    now: path.join(__dirname, "x", "now.ts"),
-    "count-down": path.join(__dirname, "x", "count-down.ts"),
-    marquee: path.join(__dirname, "x", "marquee.ts"),
-    progress: path.join(__dirname, "x", "progress.ts"),
-    loading: path.join(__dirname, "x", "loading.ts"),
-    "lazy-image": path.join(__dirname, "x", "lazy-image.ts"),
-  },
+  entry: mapEntry(),
   output: {
     path: path.join(__dirname, "docs", "x"),
     filename: "[name].js",
