@@ -45,6 +45,7 @@ class XDrawingBoard extends HTMLElement {
             __classPrivateFieldGet(this, _canvas).addEventListener("touchmove", __classPrivateFieldGet(this, _move), { passive: false });
             __classPrivateFieldGet(this, _canvas).addEventListener("mouseup", __classPrivateFieldGet(this, _end), { passive: false });
             __classPrivateFieldGet(this, _canvas).addEventListener("touchend", __classPrivateFieldGet(this, _end), { passive: false });
+            event.preventDefault();
         });
         _move.set(this, (event) => {
             let point;
@@ -63,6 +64,7 @@ class XDrawingBoard extends HTMLElement {
         _end.set(this, (event) => {
             __classPrivateFieldGet(this, _canvas).removeEventListener("mousemove", __classPrivateFieldGet(this, _move));
             __classPrivateFieldGet(this, _canvas).removeEventListener("touchmove", __classPrivateFieldGet(this, _move));
+            event.preventDefault();
         });
         __classPrivateFieldSet(this, _shadow, this.attachShadow({ mode: "open" }));
         const canvas = document.createElement("canvas");

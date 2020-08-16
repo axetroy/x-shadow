@@ -126,6 +126,7 @@ class XDrawingBoard extends HTMLElement {
 
     this.#canvas.addEventListener("mouseup", this.#end, { passive: false });
     this.#canvas.addEventListener("touchend", this.#end, { passive: false });
+    event.preventDefault();
   };
 
   #move = (event: TouchEvent | MouseEvent) => {
@@ -148,6 +149,7 @@ class XDrawingBoard extends HTMLElement {
   #end = (event: TouchEvent | MouseEvent) => {
     this.#canvas.removeEventListener("mousemove", this.#move);
     this.#canvas.removeEventListener("touchmove", this.#move);
+    event.preventDefault();
   };
 }
 
