@@ -18,7 +18,7 @@ class XCountDown extends HTMLElement {
         bubbles: false,
         composed: false,
       });
-      // @ts-ignore
+      // @ts-expect-error
       event.detail = {
         count: this.#count,
       };
