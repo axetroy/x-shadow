@@ -58,11 +58,15 @@ class XDrawingBoard extends HTMLElement {
     this.#context.fillStyle = this.#color;
     this.#context.strokeStyle = this.#color;
 
+    window.document.documentElement.addEventListener("mouseup", this.#end, {
+      passive: false,
+    });
     canvas.addEventListener("mousedown", this.#start, { passive: false });
     canvas.addEventListener("touchstart", this.#start, { passive: false });
   }
 
   public disconnectedCallback() {
+    window.document.documentElement.removeEventListener("mouseup", this.#end);
     this.#canvas.removeEventListener("mousedown", this.#start);
     this.#canvas.removeEventListener("touchstart", this.#start);
     this.#canvas.removeEventListener("mousemove", this.#move);
@@ -106,7 +110,7 @@ class XDrawingBoard extends HTMLElement {
     link.click();
   }
 
-  #start = (event: TouchEvent | MouseEvent) => {
+  #start = (event: TouchEvent | MouseEvent | Event) => {
     let point!: { clientX: number; clientY: number };
     // safari: PC mode is not have `TouchEvent` in global object
     if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
@@ -129,7 +133,7 @@ class XDrawingBoard extends HTMLElement {
     event.preventDefault();
   };
 
-  #move = (event: TouchEvent | MouseEvent) => {
+  #move = (event: TouchEvent | MouseEvent | Event) => {
     let point!: { clientX: number; clientY: number };
     // safari: PC mode is not have `TouchEvent` in global object
     if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
@@ -146,7 +150,7 @@ class XDrawingBoard extends HTMLElement {
     event.preventDefault();
   };
 
-  #end = (event: TouchEvent | MouseEvent) => {
+  #end = (event: TouchEvent | MouseEvent | Event) => {
     this.#canvas.removeEventListener("mousemove", this.#move);
     this.#canvas.removeEventListener("touchmove", this.#move);
     event.preventDefault();

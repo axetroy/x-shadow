@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 50:
+/***/ 51:
 /***/ (function() {
 
 
@@ -115,7 +115,7 @@ customElements.define("x-progress", XProgress);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[50]();
+/******/ 	__webpack_modules__[51]();
 /******/ })()
 ;
 //# sourceMappingURL=progress.js.map

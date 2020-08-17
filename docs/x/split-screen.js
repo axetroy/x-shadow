@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 51:
+/***/ 52:
 /***/ (function() {
 
 
@@ -60,7 +60,7 @@ customElements.define("x-split-screen", XSplitScreen);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[51]();
+/******/ 	__webpack_modules__[52]();
 /******/ })()
 ;
 //# sourceMappingURL=split-screen.js.map

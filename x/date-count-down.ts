@@ -1,8 +1,7 @@
-class XCountDown extends HTMLElement {
+class XCountDateDown extends HTMLElement {
   #timer?: number | NodeJS.Timeout = undefined; // the internal timer
   #shadow!: ShadowRoot;
   #count?: number = undefined;
-  #internal?: number = undefined;
   constructor() {
     super();
 
@@ -51,14 +50,6 @@ class XCountDown extends HTMLElement {
     };
 
     this.#timer = requestAnimationFrame(loop);
-
-    // this.#timer = setInterval(() => {
-    //   if (this.#count === 0) {
-    //     clearInterval(this.#timer as number);
-    //   } else {
-    //     this.#render();
-    //   }
-    // }, this.#internal);
   }
 
   stop() {
@@ -69,8 +60,6 @@ class XCountDown extends HTMLElement {
 
   connectedCallback() {
     if (this.#timer === undefined) {
-      const interval = this.getAttribute("interval");
-      this.#internal = interval ? +interval : 10;
       const count = this.getAttribute("count");
       this.#count = count ? +count : undefined;
 
@@ -85,4 +74,4 @@ class XCountDown extends HTMLElement {
   adoptedCallback() {}
 }
 
-customElements.define("x-count-down", XCountDown);
+customElements.define("x-date-count-down", XCountDateDown);

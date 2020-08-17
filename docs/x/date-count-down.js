@@ -1,7 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ (function() {
 
 
@@ -18,14 +19,13 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     }
     return privateMap.get(receiver);
 };
-var _timer, _shadow, _count, _internal, _render;
-class XCountDown extends HTMLElement {
+var _timer, _shadow, _count, _render;
+class XCountDateDown extends HTMLElement {
     constructor() {
         super();
         _timer.set(this, undefined); // the internal timer
         _shadow.set(this, void 0);
         _count.set(this, undefined);
-        _internal.set(this, undefined);
         _render.set(this, () => {
             if (__classPrivateFieldGet(this, _count) !== undefined && !isNaN(+__classPrivateFieldGet(this, _count))) {
                 __classPrivateFieldSet(this, _count, __classPrivateFieldGet(this, _count) - 1);
@@ -65,13 +65,6 @@ class XCountDown extends HTMLElement {
             }
         };
         __classPrivateFieldSet(this, _timer, requestAnimationFrame(loop));
-        // this.#timer = setInterval(() => {
-        //   if (this.#count === 0) {
-        //     clearInterval(this.#timer as number);
-        //   } else {
-        //     this.#render();
-        //   }
-        // }, this.#internal);
     }
     stop() {
         if (__classPrivateFieldGet(this, _timer) !== undefined) {
@@ -80,8 +73,6 @@ class XCountDown extends HTMLElement {
     }
     connectedCallback() {
         if (__classPrivateFieldGet(this, _timer) === undefined) {
-            const interval = this.getAttribute("interval");
-            __classPrivateFieldSet(this, _internal, interval ? +interval : 10);
             const count = this.getAttribute("count");
             __classPrivateFieldSet(this, _count, count ? +count : undefined);
             this.start();
@@ -91,8 +82,8 @@ class XCountDown extends HTMLElement {
     attributeChangedCallback(attrName, oldVal, newVal) { }
     adoptedCallback() { }
 }
-_timer = new WeakMap(), _shadow = new WeakMap(), _count = new WeakMap(), _internal = new WeakMap(), _render = new WeakMap();
-customElements.define("x-count-down", XCountDown);
+_timer = new WeakMap(), _shadow = new WeakMap(), _count = new WeakMap(), _render = new WeakMap();
+customElements.define("x-date-count-down", XCountDateDown);
 
 
 /***/ })
@@ -101,7 +92,7 @@ customElements.define("x-count-down", XCountDown);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[0]();
+/******/ 	__webpack_modules__[1]();
 /******/ })()
 ;
-//# sourceMappingURL=count-down.js.map
+//# sourceMappingURL=date-count-down.js.map

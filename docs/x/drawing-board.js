@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 2:
 /***/ (function() {
 
 
@@ -103,10 +103,14 @@ class XDrawingBoard extends HTMLElement {
         __classPrivateFieldSet(this, _context, ctx);
         __classPrivateFieldGet(this, _context).fillStyle = __classPrivateFieldGet(this, _color_1);
         __classPrivateFieldGet(this, _context).strokeStyle = __classPrivateFieldGet(this, _color_1);
+        window.document.documentElement.addEventListener("mouseup", __classPrivateFieldGet(this, _end), {
+            passive: false,
+        });
         canvas.addEventListener("mousedown", __classPrivateFieldGet(this, _start), { passive: false });
         canvas.addEventListener("touchstart", __classPrivateFieldGet(this, _start), { passive: false });
     }
     disconnectedCallback() {
+        window.document.documentElement.removeEventListener("mouseup", __classPrivateFieldGet(this, _end));
         __classPrivateFieldGet(this, _canvas).removeEventListener("mousedown", __classPrivateFieldGet(this, _start));
         __classPrivateFieldGet(this, _canvas).removeEventListener("touchstart", __classPrivateFieldGet(this, _start));
         __classPrivateFieldGet(this, _canvas).removeEventListener("mousemove", __classPrivateFieldGet(this, _move));
@@ -146,12 +150,13 @@ customElements.define("x-drawing-board", XDrawingBoard);
 
 
 /***/ })
-/******/ 	]);
+
+/******/ 	});
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[1]();
+/******/ 	__webpack_modules__[2]();
 /******/ })()
 ;
 //# sourceMappingURL=drawing-board.js.map
