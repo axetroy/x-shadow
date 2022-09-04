@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 2:
 /***/ (function() {
 
 
@@ -87,12 +87,13 @@ customElements.define("x-date-count-down", XCountDateDown);
 
 
 /***/ })
-/******/ 	]);
+
+/******/ 	});
 /************************************************************************/
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[1]();
+/******/ 	__webpack_modules__[2]();
 /******/ })()
 ;
 //# sourceMappingURL=date-count-down.js.map

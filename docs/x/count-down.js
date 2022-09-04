@@ -1,7 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ (function() {
 
 
@@ -101,7 +102,7 @@ customElements.define("x-count-down", XCountDown);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[0]();
+/******/ 	__webpack_modules__[1]();
 /******/ })()
 ;
 //# sourceMappingURL=count-down.js.map

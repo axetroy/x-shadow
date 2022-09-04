@@ -12,7 +12,7 @@
     <x-drawing-board
       color="red"
       width="300"
-      height="300"
+      height="600"
       id="draw"
       style="border: 1px solid #e2e2e2;"
     ></x-drawing-board>
@@ -27,5 +27,11 @@
     <button onclick="document.getElementById('draw').download('图片.jpg')">
       下载
     </button>
+
+    <script>
+      let i = 0
+    </script>
+
+    <button onclick="document.getElementById('draw').rotate(++i * 90)">旋转</button>
   </body>
 </html>

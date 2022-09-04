@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 2:
+/***/ 3:
 /***/ (function() {
 
 
@@ -125,15 +125,56 @@ class XDrawingBoard extends HTMLElement {
                 break;
             case "width":
                 __classPrivateFieldSet(this, _width_1, +newVal);
+                __classPrivateFieldGet(this, _canvas).setAttribute("width", newVal);
                 break;
             case "height":
                 __classPrivateFieldSet(this, _height_1, +newVal);
+                __classPrivateFieldGet(this, _canvas).setAttribute("height", newVal);
                 break;
         }
     }
     adoptedCallback() { }
     clear() {
         __classPrivateFieldGet(this, _context).clearRect(0, 0, this.width, this.height);
+    }
+    rotate(deg) {
+        deg = deg % 360;
+        const base64 = __classPrivateFieldGet(this, _canvas).toDataURL();
+        if (base64) {
+            const img = new Image();
+            img.onload = () => {
+                let cw = img.width, // canvas 宽度
+                ch = img.height, // canvas 图片高度
+                cx = 0, // canvas x 轴偏移量
+                cy = 0; // canvas y 轴偏移量
+                switch (deg) {
+                    case 90:
+                        cw = img.height;
+                        ch = img.width;
+                        cy = img.height * -1;
+                        break;
+                    case 180:
+                        cx = img.width * -1;
+                        cy = img.height * -1;
+                        break;
+                    case 270:
+                        cw = img.height;
+                        ch = img.width;
+                        cx = img.width * -1;
+                        break;
+                }
+                // 重新设置 canvas 的宽高
+                this.setAttribute("width", cw + "");
+                this.setAttribute("height", ch + "");
+                // 旋转角度
+                __classPrivateFieldGet(this, _context).rotate((deg * Math.PI) / 180);
+                // 擦拭画布
+                __classPrivateFieldGet(this, _context).clearRect(0, 0, cw, ch);
+                // 绘制图片，旋转之后，偏移量不同
+                __classPrivateFieldGet(this, _context).drawImage(img, cx, cy);
+            };
+            img.src = base64;
+        }
     }
     toBase64(type = "image/jpg") {
         return __classPrivateFieldGet(this, _canvas).toDataURL(type);
@@ -156,7 +197,7 @@ customElements.define("x-drawing-board", XDrawingBoard);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[2]();
+/******/ 	__webpack_modules__[3]();
 /******/ })()
 ;
 //# sourceMappingURL=drawing-board.js.map

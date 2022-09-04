@@ -75,20 +75,18 @@ class XDrawingBoard extends HTMLElement {
     this.#canvas.removeEventListener("touchend", this.#end);
   }
 
-  public attributeChangedCallback(
-    attrName: string,
-    oldVal: string,
-    newVal: string
-  ) {
+  public attributeChangedCallback(attrName: string, oldVal: string, newVal: string) {
     switch (attrName) {
       case "color":
         this.#color = newVal;
         break;
       case "width":
         this.#width = +newVal;
+        this.#canvas.setAttribute("width", newVal);
         break;
       case "height":
         this.#height = +newVal;
+        this.#canvas.setAttribute("height", newVal);
         break;
     }
   }
@@ -97,6 +95,52 @@ class XDrawingBoard extends HTMLElement {
 
   public clear() {
     this.#context.clearRect(0, 0, this.width, this.height);
+  }
+
+  public rotate(deg: number) {
+    deg = deg % 360;
+
+    const base64 = this.#canvas.toDataURL();
+
+    if (base64) {
+      const img = new Image();
+      img.onload = () => {
+        let cw = img.width, // canvas 宽度
+          ch = img.height, // canvas 图片高度
+          cx = 0, // canvas x 轴偏移量
+          cy = 0; // canvas y 轴偏移量
+        switch (deg) {
+          case 90:
+            cw = img.height;
+            ch = img.width;
+            cy = img.height * -1;
+            break;
+          case 180:
+            cx = img.width * -1;
+            cy = img.height * -1;
+            break;
+          case 270:
+            cw = img.height;
+            ch = img.width;
+            cx = img.width * -1;
+            break;
+        }
+
+        // 重新设置 canvas 的宽高
+        this.setAttribute("width", cw + "");
+        this.setAttribute("height", ch + "");
+
+        // 旋转角度
+        this.#context.rotate((deg * Math.PI) / 180);
+
+        // 擦拭画布
+        this.#context.clearRect(0, 0, cw, ch);
+
+        // 绘制图片，旋转之后，偏移量不同
+        this.#context.drawImage(img, cx, cy);
+      };
+      img.src = base64;
+    }
   }
 
   public toBase64(type: string = "image/jpg"): string {
@@ -120,10 +164,7 @@ class XDrawingBoard extends HTMLElement {
     }
     const stroke_info = this.#canvas.getBoundingClientRect();
     this.#context.beginPath(); // clear path
-    this.#context.moveTo(
-      point.clientX - stroke_info.left,
-      point.clientY - stroke_info.top
-    );
+    this.#context.moveTo(point.clientX - stroke_info.left, point.clientY - stroke_info.top);
 
     this.#canvas.addEventListener("mousemove", this.#move, { passive: false });
     this.#canvas.addEventListener("touchmove", this.#move, { passive: false });
@@ -142,10 +183,7 @@ class XDrawingBoard extends HTMLElement {
       point = event as MouseEvent;
     }
     const stroke_info = this.#canvas.getBoundingClientRect();
-    this.#context.lineTo(
-      point.clientX - stroke_info.left,
-      point.clientY - stroke_info.top
-    );
+    this.#context.lineTo(point.clientX - stroke_info.left, point.clientY - stroke_info.top);
     this.#context.stroke();
     event.preventDefault();
   };

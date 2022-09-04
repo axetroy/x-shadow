@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 16:
+/***/ 17:
 /***/ (function() {
 
 
@@ -140,7 +140,7 @@ customElements.define("x-loading", XLoading);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[16]();
+/******/ 	__webpack_modules__[17]();
 /******/ })()
 ;
 //# sourceMappingURL=loading.js.map

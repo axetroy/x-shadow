@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 17:
+/***/ 18:
 /***/ (function() {
 
 
@@ -123,7 +123,7 @@ customElements.define("x-marquee", XMarquee);
 /******/ 	// startup
 /******/ 	// Load entry module
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	__webpack_modules__[17]();
+/******/ 	__webpack_modules__[18]();
 /******/ })()
 ;
 //# sourceMappingURL=marquee.js.map
